@@ -4,114 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI + Spec-Driven Development Operating Model — Qcells</title>
-<style>
-  :root { --blue: #3B82F6; --purple: #8B5CF6; --amber: #F59E0B; --green: #10B981; --slate: #1E293B; --muted: #64748B; --light: #F8FAFC; --border: #E2E8F0; }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; color: var(--slate); background: #fff; line-height: 1.6; }
-  .container { max-width: 960px; margin: 0 auto; padding: 40px 24px; }
-  header { text-align: center; margin-bottom: 48px; padding-bottom: 32px; border-bottom: 2px solid var(--border); }
-  header h1 { font-size: 2rem; font-weight: 800; color: #0F172A; margin-bottom: 4px; }
-  header .subtitle { font-size: 1.1rem; color: var(--muted); }
-  header .meta { font-size: 0.85rem; color: #94A3B8; margin-top: 12px; }
-  .status-badge { display: inline-block; background: #FEF3C7; color: #92400E; font-weight: 600; font-size: 0.8rem; padding: 3px 12px; border-radius: 20px; margin-top: 10px; }
-  h2 { font-size: 1.5rem; font-weight: 700; color: #0F172A; margin: 48px 0 8px; }
-  h2 .num { color: var(--muted); font-weight: 400; margin-right: 6px; }
-  h3 { font-size: 1.1rem; font-weight: 700; margin: 24px 0 8px; }
-  p, li { font-size: 0.95rem; color: #334155; }
-  .lead { font-size: 1.05rem; color: var(--muted); margin-bottom: 32px; }
-  .callout { background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px; padding: 20px 24px; margin: 24px 0; }
-  .callout h4 { color: #92400E; font-size: 0.95rem; margin-bottom: 6px; }
-  .callout p { color: #78350F; font-size: 0.9rem; }
-
-  /* Role Cards */
-  .role-card { border: 2px solid var(--border); border-radius: 14px; padding: 28px; margin-bottom: 24px; transition: border-color 0.2s; }
-  .role-card:hover { border-color: #CBD5E1; }
-  .role-header { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
-  .role-icon { font-size: 2rem; }
-  .role-title { font-size: 1.3rem; font-weight: 700; }
-  .role-ratio { font-size: 0.8rem; color: #94A3B8; }
-  .role-mission { font-style: italic; color: var(--muted); margin: 8px 0 20px; font-size: 0.95rem; }
-  .role-card.architect { border-left: 5px solid var(--blue); }
-  .role-card.architect .role-title { color: var(--blue); }
-  .role-card.srdev { border-left: 5px solid var(--purple); }
-  .role-card.srdev .role-title { color: var(--purple); }
-  .role-card.tpm { border-left: 5px solid var(--amber); }
-  .role-card.tpm .role-title { color: var(--amber); }
-  .role-card.devmgr { border-left: 5px solid var(--green); }
-  .role-card.devmgr .role-title { color: var(--green); }
-
-  /* Allocation Table */
-  table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 0.9rem; }
-  th { text-align: left; font-weight: 700; color: var(--muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; padding: 8px 10px; border-bottom: 2px solid var(--border); }
-  td { padding: 8px 10px; border-bottom: 1px solid #F1F5F9; color: #334155; }
-  td:first-child { font-weight: 600; width: 50px; text-align: center; }
-  .bar-cell { position: relative; }
-  .bar { height: 6px; border-radius: 3px; position: absolute; bottom: 6px; left: 10px; opacity: 0.25; }
-  .architect .bar { background: var(--blue); }
-  .srdev .bar { background: var(--purple); }
-  .tpm .bar { background: var(--amber); }
-  .devmgr .bar { background: var(--green); }
-
-  /* Tags */
-  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
-  .tag { background: var(--light); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: 0.8rem; color: #475569; }
-
-  /* Lifecycle */
-  .lifecycle { display: flex; flex-direction: column; gap: 0; margin: 20px 0; }
-  .phase { display: flex; align-items: stretch; }
-  .phase-num { width: 44px; display: flex; flex-direction: column; align-items: center; }
-  .phase-dot { width: 32px; height: 32px; border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
-  .phase-line { width: 2px; flex: 1; background: var(--border); }
-  .phase-content { flex: 1; border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; margin: 0 0 8px 12px; }
-  .phase-content h4 { font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
-  .phase-content .owner { font-size: 0.8rem; color: #94A3B8; font-weight: 600; }
-  .phase-content p { font-size: 0.88rem; color: var(--muted); margin-top: 4px; }
-
-  /* Exec Metrics */
-  .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
-  .metric-card { background: var(--light); border-radius: 10px; padding: 16px; }
-  .metric-card h4 { font-size: 0.95rem; font-weight: 700; color: #334155; margin-bottom: 4px; }
-  .metric-card p { font-size: 0.85rem; color: var(--muted); }
-  .metric-card .target { font-size: 0.8rem; font-weight: 600; color: var(--blue); margin-top: 6px; }
-
-  /* Reporting Tiers */
-  .tier { display: flex; align-items: center; gap: 16px; padding: 16px; border-radius: 10px; background: var(--light); margin-bottom: 8px; }
-  .tier-label { min-width: 90px; }
-  .tier-label strong { display: block; font-size: 0.95rem; }
-  .tier-label span { font-size: 0.75rem; color: #94A3B8; }
-  .tier-desc { flex: 1; }
-  .tier-desc strong { font-size: 0.9rem; color: #334155; display: block; }
-  .tier-desc span { font-size: 0.85rem; color: var(--muted); }
-  .tier.strategic { border-left: 4px solid #EF4444; }
-  .tier.strategic .tier-label strong { color: #EF4444; }
-  .tier.tactical { border-left: 4px solid var(--amber); }
-  .tier.tactical .tier-label strong { color: var(--amber); }
-  .tier.operational { border-left: 4px solid var(--green); }
-  .tier.operational .tier-label strong { color: var(--green); }
-
-  /* Before/After */
-  .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
-  .compare-box { border-radius: 12px; padding: 20px; }
-  .compare-box.before { background: #FEF2F2; border: 1px solid #FECACA; }
-  .compare-box.before h4 { color: #991B1B; }
-  .compare-box.after { background: #ECFDF5; border: 1px solid #A7F3D0; }
-  .compare-box.after h4 { color: #065F46; }
-  .compare-box h4 { font-size: 1rem; margin-bottom: 8px; }
-  .compare-box p { font-size: 0.88rem; }
-
-  /* Feedback Section */
-  .feedback-section { background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 24px; margin: 40px 0 0; }
-  .feedback-section h3 { color: #1E40AF; margin: 0 0 8px; }
-  .feedback-section p { color: #1E3A5F; font-size: 0.9rem; }
-  .feedback-section code { background: #DBEAFE; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; }
-
-  footer { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); color: #94A3B8; font-size: 0.8rem; }
-
-  @media (max-width: 640px) {
-    .metrics-grid, .comparison { grid-template-columns: 1fr; }
-    header h1 { font-size: 1.5rem; }
-  }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div class="container">
@@ -123,6 +16,14 @@
   <div class="meta">Author: Chief Architect &nbsp;|&nbsp; Last Updated: March 2026 &nbsp;|&nbsp; Version 0.1</div>
 </header>
 
+<nav class="site-nav">
+  <a href="index.html" class="nav-link active">Overview</a>
+  <a href="architect.html" class="nav-link">Architect</a>
+  <a href="senior-developer.html" class="nav-link">Sr. Developer</a>
+  <a href="tpm.html" class="nav-link">TPM</a>
+  <a href="dev-manager.html" class="nav-link">Dev Manager</a>
+</nav>
+
 <p class="lead">This document defines the operating model for Qcells software engineering teams using AI-augmented, specification-driven development. Architects specify designs, senior developers use Claude Code agent teams to implement, TPMs track delivery, and dev managers oversee people and process.</p>
 
 <div class="callout">
@@ -131,134 +32,45 @@
 </div>
 
 <!-- ============ ROLES ============ -->
-<h2><span class="num">01</span> Roles & Responsibilities</h2>
+<h2 id="roles"><span class="num">01</span> Roles & Responsibilities</h2>
 
-<div class="role-card architect">
-  <div class="role-header">
-    <span class="role-icon">🏗️</span>
-    <div><div class="role-title">Architect</div><div class="role-ratio">Suggested ratio: 1 per 2–3 product domains</div></div>
-  </div>
-  <div class="role-mission">Define the "what" and "why" — own specifications, system design, and architectural integrity.</div>
-  <table>
-    <thead><tr><th>%</th><th>Responsibility</th></tr></thead>
-    <tbody>
-      <tr><td>40%</td><td>Write and maintain detailed specs (API contracts, data models, system flows, acceptance criteria)</td></tr>
-      <tr><td>20%</td><td>Review AI-generated code for architectural compliance and quality</td></tr>
-      <tr><td>15%</td><td>Define architectural standards, patterns, and guardrails for AI-generated code</td></tr>
-      <tr><td>10%</td><td>Decompose epics into spec-ready units with clear boundaries and interfaces</td></tr>
-      <tr><td>10%</td><td>Evolve spec templates and prompt libraries for Claude Code effectiveness</td></tr>
-      <tr><td>5%</td><td>Collaborate with TPMs on sequencing and dependency mapping</td></tr>
-    </tbody>
-  </table>
-  <h3>Key Artifacts</h3>
-  <div class="tags">
-    <span class="tag">Design Specs</span><span class="tag">API Contracts (OpenAPI)</span><span class="tag">ADRs</span><span class="tag">System Diagrams</span><span class="tag">Prompt/Spec Templates</span><span class="tag">Code Review Checklists</span>
-  </div>
-  <h3>KPIs</h3>
-  <div class="tags">
-    <span class="tag">Spec clarity score (rework rate)</span><span class="tag">First-pass acceptance rate of AI code</span><span class="tag">Architecture compliance rate</span>
-  </div>
-  <div class="callout">
-    <h4>Key Insight</h4>
-    <p>This becomes the highest-leverage role in the org. A well-written spec is the primary input to AI-driven development. Architects must think in terms of "how will Claude interpret this?" when writing specs.</p>
-  </div>
-</div>
-
-<div class="role-card srdev">
-  <div class="role-header">
-    <span class="role-icon">👨‍💻</span>
-    <div><div class="role-title">Senior Developer</div><div class="role-ratio">Suggested ratio: 1 per 1–2 product domains</div></div>
-  </div>
-  <div class="role-mission">Orchestrate Claude Code agent teams to implement specs — own code quality, testing, and delivery.</div>
-  <table>
-    <thead><tr><th>%</th><th>Responsibility</th></tr></thead>
-    <tbody>
-      <tr><td>35%</td><td>Translate specs into Claude Code agent prompts and orchestrate agent teams</td></tr>
-      <tr><td>25%</td><td>Review, validate, and integrate AI-generated code</td></tr>
-      <tr><td>15%</td><td>Write and maintain test suites (unit, integration, e2e)</td></tr>
-      <tr><td>10%</td><td>Debug complex issues that agents cannot resolve autonomously</td></tr>
-      <tr><td>10%</td><td>Refine prompts and agent workflows for higher first-pass quality</td></tr>
-      <tr><td>5%</td><td>Flag spec gaps or ambiguities back to Architects</td></tr>
-    </tbody>
-  </table>
-  <h3>Key Artifacts</h3>
-  <div class="tags">
-    <span class="tag">Production Code (via Claude Code)</span><span class="tag">Test Suites</span><span class="tag">Agent Prompt Playbooks</span><span class="tag">PR/Merge Requests</span><span class="tag">Spec Feedback</span>
-  </div>
-  <h3>KPIs</h3>
-  <div class="tags">
-    <span class="tag">Specs delivered per sprint</span><span class="tag">Code quality (coverage, defect rate)</span><span class="tag">Agent efficiency (% code accepted)</span>
-  </div>
-  <div class="callout">
-    <h4>Key Insight</h4>
-    <p>The role shifts from "writing code" to "directing and curating code." One senior dev with Claude Code can match the output of 3–5 traditional developers. They need strong judgment about what to delegate vs. handle manually.</p>
-  </div>
-</div>
-
-<div class="role-card tpm">
-  <div class="role-header">
-    <span class="role-icon">📊</span>
-    <div><div class="role-title">Technical Program Manager (TPM)</div><div class="role-ratio">Suggested ratio: 1 per 3–4 product domains</div></div>
-  </div>
-  <div class="role-mission">Prioritize, sequence, and track spec-driven delivery — own the roadmap, reporting, and cross-team coordination.</div>
-  <table>
-    <thead><tr><th>%</th><th>Responsibility</th></tr></thead>
-    <tbody>
-      <tr><td>25%</td><td>Prioritize spec backlog with product and architecture input</td></tr>
-      <tr><td>20%</td><td>Track spec lifecycle (drafted → reviewed → implementing → verified → done)</td></tr>
-      <tr><td>20%</td><td>Produce executive dashboards and status reports</td></tr>
-      <tr><td>15%</td><td>Manage cross-team dependencies and sequencing</td></tr>
-      <tr><td>10%</td><td>Facilitate sprint/cycle planning and retrospectives</td></tr>
-      <tr><td>10%</td><td>Risk identification, escalation, and mitigation tracking</td></tr>
-    </tbody>
-  </table>
-  <h3>Key Artifacts</h3>
-  <div class="tags">
-    <span class="tag">Roadmap with Spec Tracking</span><span class="tag">Executive Dashboards</span><span class="tag">Dependency Maps</span><span class="tag">Sprint/Cycle Plans</span><span class="tag">Risk Registers</span>
-  </div>
-  <h3>KPIs</h3>
-  <div class="tags">
-    <span class="tag">Roadmap predictability</span><span class="tag">Cycle time (spec → done)</span><span class="tag">Risk resolution rate</span><span class="tag">Reporting cadence & quality</span>
-  </div>
-  <div class="callout">
-    <h4>Key Insight</h4>
-    <p>TPMs report upward in business terms (features, milestones) while managing downward in spec terms. AI-driven velocity means estimation models must be recalibrated — things move faster but in different patterns.</p>
-  </div>
-</div>
-
-<div class="role-card devmgr">
-  <div class="role-header">
-    <span class="role-icon">🎯</span>
-    <div><div class="role-title">Dev Manager</div><div class="role-ratio">Suggested ratio: 1 per 6–10 senior developers</div></div>
-  </div>
-  <div class="role-mission">Oversee team health, process quality, and continuous improvement — own people, process, and culture.</div>
-  <table>
-    <thead><tr><th>%</th><th>Responsibility</th></tr></thead>
-    <tbody>
-      <tr><td>25%</td><td>Coach and develop senior developers in AI-augmented workflows</td></tr>
-      <tr><td>20%</td><td>Monitor process health (bottlenecks, quality trends, team capacity)</td></tr>
-      <tr><td>20%</td><td>Own hiring, performance management, and career development</td></tr>
-      <tr><td>15%</td><td>Drive continuous improvement of the spec-driven + AI workflow</td></tr>
-      <tr><td>10%</td><td>Coordinate with Architects and TPMs on resourcing and allocation</td></tr>
-      <tr><td>10%</td><td>Manage tooling, environment, and Claude Code licensing/access</td></tr>
-    </tbody>
-  </table>
-  <h3>Key Artifacts</h3>
-  <div class="tags">
-    <span class="tag">Team Health Metrics</span><span class="tag">Process Improvement Plans</span><span class="tag">Capacity Models</span><span class="tag">AI Workflow Onboarding Guides</span><span class="tag">Performance Frameworks</span>
-  </div>
-  <h3>KPIs</h3>
-  <div class="tags">
-    <span class="tag">Team velocity trend</span><span class="tag">Developer satisfaction & retention</span><span class="tag">Process maturity score</span><span class="tag">AI workflow onboarding time</span>
-  </div>
-  <div class="callout">
-    <h4>Key Insight</h4>
-    <p>Less "task assignment" (specs and priorities handle that), more coaching, culture, and process optimization. Dev Managers must understand AI tooling deeply enough to spot when it's being under- or misused.</p>
-  </div>
+<div class="role-grid">
+  <a href="architect.html" class="role-summary architect">
+    <div class="role-header">
+      <span class="role-icon">🏗️</span>
+      <div><div class="role-title">Architect</div><div class="role-ratio">1 per 2–3 product domains</div></div>
+    </div>
+    <div class="role-mission">Define the "what" and "why" — own specifications, system design, and architectural integrity.</div>
+    <span class="role-link">View Details →</span>
+  </a>
+  <a href="senior-developer.html" class="role-summary srdev">
+    <div class="role-header">
+      <span class="role-icon">👨‍💻</span>
+      <div><div class="role-title">Sr. Developer</div><div class="role-ratio">1 per 1–2 product domains</div></div>
+    </div>
+    <div class="role-mission">Orchestrate Claude Code agent teams to implement specs — own code quality, testing, and delivery.</div>
+    <span class="role-link">View Details →</span>
+  </a>
+  <a href="tpm.html" class="role-summary tpm">
+    <div class="role-header">
+      <span class="role-icon">📊</span>
+      <div><div class="role-title">TPM</div><div class="role-ratio">1 per 3–4 product domains</div></div>
+    </div>
+    <div class="role-mission">Prioritize, sequence, and track spec-driven delivery — own the roadmap, reporting, and cross-team coordination.</div>
+    <span class="role-link">View Details →</span>
+  </a>
+  <a href="dev-manager.html" class="role-summary devmgr">
+    <div class="role-header">
+      <span class="role-icon">🎯</span>
+      <div><div class="role-title">Dev Manager</div><div class="role-ratio">1 per 6–10 senior developers</div></div>
+    </div>
+    <div class="role-mission">Oversee team health, process quality, and continuous improvement — own people, process, and culture.</div>
+    <span class="role-link">View Details →</span>
+  </a>
 </div>
 
 <!-- ============ LIFECYCLE ============ -->
-<h2><span class="num">02</span> Spec Lifecycle</h2>
+<h2 id="lifecycle"><span class="num">02</span> Spec Lifecycle</h2>
 <p style="color: var(--muted); margin-bottom: 20px;">Every piece of work flows through these seven phases. The spec is the thread that connects them all.</p>
 
 <div class="lifecycle">
@@ -301,7 +113,7 @@
 </div>
 
 <!-- ============ EXEC VIEW ============ -->
-<h2><span class="num">03</span> Executive Reporting</h2>
+<h2 id="exec-reporting"><span class="num">03</span> Executive Reporting</h2>
 
 <h3>Reporting Tiers</h3>
 <div class="tier strategic"><div class="tier-label"><strong>Strategic</strong><span>Monthly</span></div><div class="tier-desc"><strong>C-Suite / SVP</strong><span>Portfolio health, milestone delivery, investment ROI</span></div></div>
@@ -319,7 +131,7 @@
 </div>
 
 <!-- ============ BEFORE/AFTER ============ -->
-<h2><span class="num">04</span> The Transformation</h2>
+<h2 id="transformation"><span class="num">04</span> The Transformation</h2>
 
 <div class="comparison">
   <div class="compare-box before">

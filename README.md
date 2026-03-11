@@ -10,13 +10,18 @@ This repository contains the operating model for Qcells software engineering tea
 
 **The core idea:** The specification becomes the atomic unit of planning, execution, and reporting. Architects write specs, senior developers use Claude Code agent teams to implement them, TPMs track delivery, and dev managers oversee people and process.
 
-### 🔗 [View the Operating Model →](https://YOUR_USERNAME.github.io/sdd-operating-model/)
+### 🔗 [View the Operating Model →](https://tonyguid.github.io/sdd-operating-model/)
 
 ## What's Inside
 
 | File | Description |
 |------|-------------|
-| `index.html` | Full operating model — roles, lifecycle, exec reporting |
+| `index.html` | Overview landing page — lifecycle, exec reporting, transformation |
+| `styles.css` | Shared CSS for all pages |
+| `architect.html` | Architect role — responsibilities, artifacts, KPIs |
+| `senior-developer.html` | Senior Developer role — responsibilities, artifacts, KPIs |
+| `tpm.html` | TPM role — responsibilities, artifacts, KPIs |
+| `dev-manager.html` | Dev Manager role — responsibilities, artifacts, KPIs |
 | `CONTRIBUTING.md` | How to provide feedback and contribute |
 | `specs/SPEC_TEMPLATE.md` | Template for writing implementation specs |
 | `docs/adr/` | Architecture Decision Records |
@@ -42,7 +47,12 @@ We want your input. See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ```
 sdd-operating-model/
-├── index.html                  # Operating model (GitHub Pages site)
+├── index.html                  # Overview landing page
+├── styles.css                  # Shared CSS
+├── architect.html              # Architect role detail
+├── senior-developer.html       # Senior Developer role detail
+├── tpm.html                    # TPM role detail
+├── dev-manager.html            # Dev Manager role detail
 ├── README.md                   # This file
 ├── CONTRIBUTING.md              # Feedback & contribution guide
 ├── specs/
@@ -51,8 +61,10 @@ sdd-operating-model/
 │   └── adr/
 │       └── 001-adopt-sdd.md    # ADR: Adopt SDD with AI
 └── .github/
-    └── ISSUE_TEMPLATE/
-        └── feedback.md         # Issue template for feedback
+    ├── ISSUE_TEMPLATE/
+    │   └── feedback.md         # Issue template for feedback
+    └── workflows/
+        └── pages.yml           # GitHub Pages deployment
 ```
 
 ## License
