@@ -56,6 +56,114 @@
   </div>
 </div>
 
+<!-- ============ AGENT TEAM PATTERNS ============ -->
+<h2>Agent Team Patterns</h2>
+<p style="color: var(--muted); margin-bottom: 20px;">How to structure Claude Code agents for different types of work. Match the pattern to the complexity of the spec.</p>
+
+<div class="metrics-grid">
+  <div class="metric-card">
+    <h4>🧑‍✈️ Lead + Sub-Agent</h4>
+    <p>One lead agent coordinates the overall spec. It spawns sub-agents for isolated tasks — frontend component, backend API, database migration, test suite. The lead reviews and integrates sub-agent output.</p>
+    <div class="target">Best for: Cross-cutting features</div>
+  </div>
+  <div class="metric-card">
+    <h4>⚡ Parallel Execution</h4>
+    <p>Independent spec units run as parallel agents simultaneously. Each agent works on a separate module with clear interface boundaries. Merge results after all agents complete.</p>
+    <div class="target">Best for: Multiple independent modules</div>
+  </div>
+  <div class="metric-card">
+    <h4>🔗 Sequential Pipeline</h4>
+    <p>Agents execute in sequence when output of one feeds into the next — e.g., data model first, then API layer, then UI. Each agent inherits context from the previous step.</p>
+    <div class="target">Best for: Dependent layers</div>
+  </div>
+  <div class="metric-card">
+    <h4>🎯 Single Agent</h4>
+    <p>One agent handles the entire spec end-to-end. Use for small, well-scoped changes — a bug fix, a single endpoint, a UI tweak. No coordination overhead.</p>
+    <div class="target">Best for: Simple, isolated changes</div>
+  </div>
+</div>
+
+<div class="callout">
+  <h4>Task Decomposition Rule of Thumb</h4>
+  <p>If a spec touches more than 3 files or crosses architectural boundaries (frontend + backend), use multi-agent. If it's a single concern in a single area, use a single agent. When in doubt, start with one agent and split when you see it struggling with scope.</p>
+</div>
+
+<!-- ============ PROMPT ORCHESTRATION ============ -->
+<h2>Spec-to-Prompt Workflow</h2>
+<p style="color: var(--muted); margin-bottom: 20px;">The process of translating an Architect's spec into effective Claude Code prompts. Each step builds on the previous.</p>
+
+<div class="lifecycle">
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--purple)">1</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--purple)">Read the Spec</h4>
+      <div class="owner">Extract what matters</div>
+      <p>Identify the scope, acceptance criteria, data models, API contracts, and system flows. Flag any ambiguities — these will cause poor agent output if left unresolved. Send questions back to the Architect before proceeding.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--purple)">2</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--purple)">Set Context</h4>
+      <div class="owner">Ground the agent in the codebase</div>
+      <p>Use CLAUDE.md to give the agent project conventions, patterns, and structure. Reference specific files the agent will need to read or modify. Point to existing implementations as examples of the expected pattern. Less is more — only include relevant context.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--purple)">3</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--purple)">Decompose into Prompts</h4>
+      <div class="owner">One prompt per agent task</div>
+      <p>Each prompt should have a single clear objective, explicit constraints (naming conventions, error handling patterns, test expectations), and a definition of done. Include the relevant acceptance criteria from the spec verbatim.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--purple)">4</div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--purple)">Iterate and Refine</h4>
+      <div class="owner">Improve first-pass quality over time</div>
+      <p>Review agent output against the spec. If quality is low, tighten the prompt — add constraints, provide examples, narrow the scope. Track which prompt patterns produce high first-pass acceptance rates and build a team prompt library.</p>
+    </div>
+  </div>
+</div>
+
+<h3>Prompt Templates</h3>
+<p style="color: var(--muted); margin-bottom: 12px;">Maintain reusable prompt patterns for common tasks. These accelerate onboarding and improve consistency.</p>
+<div class="tags">
+  <span class="tag">New API Endpoint</span><span class="tag">New UI Component</span><span class="tag">Database Migration</span><span class="tag">Refactor Module</span><span class="tag">Write Test Suite</span><span class="tag">Bug Fix</span><span class="tag">Performance Optimization</span>
+</div>
+
+<!-- ============ QUALITY & REVIEW ============ -->
+<h2>Quality & Review Workflow</h2>
+<p style="color: var(--muted); margin-bottom: 20px;">Knowing when to accept, iterate, or intervene manually is the core judgment skill for AI-augmented development.</p>
+
+<div class="comparison">
+  <div class="compare-box after">
+    <h4>✅ Accept When</h4>
+    <p>Code meets all acceptance criteria from the spec. Follows existing architecture and patterns. Tests pass (unit, integration). No hallucinated dependencies or imports. Naming and style match conventions. PR is merge-ready.</p>
+  </div>
+  <div class="compare-box before">
+    <h4>🔄 Iterate When</h4>
+    <p>Output is close but has gaps — missing edge cases, incomplete error handling, slightly wrong patterns. Give the agent targeted feedback: quote the specific issue, reference the correct pattern, and re-run. Most specs take 1–3 iterations.</p>
+  </div>
+</div>
+
+<div class="comparison" style="margin-top: 0;">
+  <div class="compare-box before">
+    <h4>🛑 Intervene Manually When</h4>
+    <p>Security-sensitive logic (auth, encryption, access control). Complex debugging that requires system-level understanding. Architectural decisions the agent consistently gets wrong. Performance-critical hot paths. Integration with undocumented external systems.</p>
+  </div>
+  <div class="compare-box after">
+    <h4>📋 Verify Every Time</h4>
+    <p>Map each acceptance criterion from the spec to delivered code. Run the full test suite — don't trust agent claims that tests pass. Check for unintended side effects in adjacent code. Review generated tests for meaningful assertions, not just coverage.</p>
+  </div>
+</div>
+
+<div class="callout">
+  <h4>The 70/30 Rule</h4>
+  <p>Target 70%+ first-pass acceptance rate from agents. If you're below that, the problem is usually upstream — vague specs, insufficient context in CLAUDE.md, or prompts that are too broad. Fix the inputs before blaming the agent.</p>
+</div>
+
 <a href="index.html#lifecycle" class="back-link">← See how this role fits into the Spec Lifecycle</a>
 
 <footer>
