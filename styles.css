@@ -1,4 +1,4 @@
-:root { --blue: #3B82F6; --purple: #8B5CF6; --amber: #F59E0B; --green: #10B981; --slate: #1E293B; --muted: #64748B; --light: #F8FAFC; --border: #E2E8F0; }
+:root { --blue: #3B82F6; --purple: #8B5CF6; --amber: #F59E0B; --green: #10B981; --rose: #E11D48; --slate: #1E293B; --muted: #64748B; --light: #F8FAFC; --border: #E2E8F0; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; color: var(--slate); background: #fff; line-height: 1.6; }
 .container { max-width: 960px; margin: 0 auto; padding: 40px 24px; }
@@ -38,6 +38,8 @@ p, li { font-size: 0.95rem; color: #334155; }
 .role-card.tpm .role-title { color: var(--amber); }
 .role-card.devmgr { border-left: 5px solid var(--green); }
 .role-card.devmgr .role-title { color: var(--green); }
+.role-card.po { border-left: 5px solid var(--rose); }
+.role-card.po .role-title { color: var(--rose); }
 
 /* Role Summary Grid (overview page) */
 .role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0 40px; }
@@ -47,11 +49,13 @@ p, li { font-size: 0.95rem; color: #334155; }
 .role-summary.srdev { border-left: 5px solid var(--purple); }
 .role-summary.tpm { border-left: 5px solid var(--amber); }
 .role-summary.devmgr { border-left: 5px solid var(--green); }
+.role-summary.po { border-left: 5px solid var(--rose); }
 .role-summary .role-mission { margin: 8px 0 12px; }
 .role-link { font-size: 0.85rem; font-weight: 600; color: var(--blue); }
 .role-summary.srdev .role-link { color: var(--purple); }
 .role-summary.tpm .role-link { color: var(--amber); }
 .role-summary.devmgr .role-link { color: var(--green); }
+.role-summary.po .role-link { color: var(--rose); }
 
 /* Allocation Table */
 table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 0.9rem; }
@@ -64,6 +68,7 @@ td:first-child { font-weight: 600; width: 50px; text-align: center; }
 .srdev .bar { background: var(--purple); }
 .tpm .bar { background: var(--amber); }
 .devmgr .bar { background: var(--green); }
+.po .bar { background: var(--rose); }
 
 /* Tags */
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
