@@ -377,6 +377,147 @@
   <p>The most common mistake when transitioning: decomposing specs into tasks the way you would with stories. Agents handle their own task decomposition. If you find yourself writing tasks under specs in ADO, either the spec is too large (split it) or you are micromanaging the agent workflow.</p>
 </div>
 
+
+<!-- ============ BUG RESOLUTION & REPORTABILITY ============ -->
+<h2 id="bug-resolution"><span class="num">07</span> Bug Resolution &amp; Reportability</h2>
+<p style="color: var(--muted); margin-bottom: 20px;">How bugs are tracked, resolved, and measured in the SDD model. Bugs are first-class work items linked back to the originating spec, enabling root-cause analysis and continuous spec quality improvement.</p>
+
+<h3>Bug Handling in SDD</h3>
+<div class="callout">
+  <h4>Bugs Are Spec Feedback</h4>
+  <p>Every production bug is a signal about spec quality, agent output quality, or validation gaps. Link every bug to its originating spec in ADO. This creates a feedback loop: specs that produce more bugs get reviewed for systemic issues in their design, acceptance criteria, or test coverage.</p>
+</div>
+
+<h3>Bug Work Item Flow</h3>
+<div class="lifecycle">
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:#EF4444">1</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:#EF4444">Reported</h4>
+      <div class="owner">Owner: Reporter (any role)</div>
+      <p>Bug created in ADO using Bug work item type. Must include: reproduction steps, expected vs. actual behavior, severity (P0-P3), and link to originating spec. Screenshots or logs attached.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--amber)">2</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--amber)">Triaged</h4>
+      <div class="owner">Owner: Sr. Developer + Architect</div>
+      <p>Bug assessed for severity, root cause, and fix scope. Linked to originating spec. Classified as: spec gap, agent error, test gap, or environment issue. Sized (S/M/L) and prioritized.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--purple)">3</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--purple)">Fixing</h4>
+      <div class="owner">Owner: Sr. Developer</div>
+      <p>Sr. Dev creates a fix spec or patches directly depending on severity. P0/P1 bugs bypass the normal spec queue and are fixed immediately. Agent teams execute the fix. Root-cause documented.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:#EC4899">4</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:#EC4899">Verifying</h4>
+      <div class="owner">Owner: Sr. Developer + Reporter</div>
+      <p>Fix validated against original reproduction steps. Regression tests added. Reporter confirms the fix resolves the issue. Architect reviews if the bug exposed a spec gap.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--green)">5</div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--green)">Resolved</h4>
+      <div class="owner">Fix deployed</div>
+      <p>Bug closed in ADO. Resolution time logged. Root-cause category recorded. If the bug originated from a spec gap, the originating spec is flagged for retrospective review.</p>
+    </div>
+  </div>
+</div>
+
+<h3>Severity Levels</h3>
+<div class="tier strategic"><div class="tier-label"><strong>P0 — Critical</strong><span>Fix immediately</span></div><div class="tier-desc"><strong>System down or data loss</strong><span>Production outage, security breach, data corruption. Drop everything. Bypass spec queue.</span></div></div>
+<div class="tier tactical"><div class="tier-label"><strong>P1 — High</strong><span>Fix this cycle</span></div><div class="tier-desc"><strong>Major feature broken</strong><span>Core workflow blocked for users, no workaround. Prioritize in current cycle.</span></div></div>
+<div class="tier operational"><div class="tier-label"><strong>P2 — Medium</strong><span>Fix next cycle</span></div><div class="tier-desc"><strong>Feature degraded</strong><span>Workaround exists. Schedule as Small spec in next cycle planning.</span></div></div>
+<div class="tier" style="border-left: 4px solid var(--muted);"><div class="tier-label"><strong style="color:var(--muted);">P3 — Low</strong><span>Backlog</span></div><div class="tier-desc"><strong>Cosmetic or minor</strong><span>UI polish, non-blocking edge cases. Groom into spec backlog when capacity allows.</span></div></div>
+
+<h3>Resolution Metrics</h3>
+<div class="metrics-grid">
+  <div class="metric-card">
+    <h4>Mean Time to Resolution (MTTR)</h4>
+    <p>Average time from bug reported to fix deployed, by severity level</p>
+    <div class="target">Target: P0 &lt; 4 hrs · P1 &lt; 2 days · P2 &lt; 1 cycle</div>
+  </div>
+  <div class="metric-card">
+    <h4>Bug Resolution Rate</h4>
+    <p>% of open bugs resolved per cycle. Tracks whether the team is staying ahead of incoming bugs.</p>
+    <div class="target">Target: > 90% per cycle</div>
+  </div>
+  <div class="metric-card">
+    <h4>Bugs per Spec Delivered</h4>
+    <p>Production bugs traced back per spec. Identifies specs or domains that consistently produce defects.</p>
+    <div class="target">Target: Track trend ↓</div>
+  </div>
+  <div class="metric-card">
+    <h4>Root-Cause Distribution</h4>
+    <p>% breakdown by category: spec gap, agent error, test gap, environment issue. Drives systemic improvement.</p>
+    <div class="target">Target: Spec gaps &lt; 20% of total</div>
+  </div>
+  <div class="metric-card">
+    <h4>Reopen Rate</h4>
+    <p>% of bugs reopened after being marked resolved. Indicates fix quality and verification thoroughness.</p>
+    <div class="target">Target: &lt; 10%</div>
+  </div>
+  <div class="metric-card">
+    <h4>Escaped Defect Trend</h4>
+    <p>Production defects per cycle over time. The primary quality trend line for executive reporting.</p>
+    <div class="target">Target: Track trend ↓</div>
+  </div>
+</div>
+
+<h3>Reportability Metrics</h3>
+<p style="color: var(--muted); margin-bottom: 16px;">Bug reportability measures how well bugs are documented when filed. High-quality bug reports reduce triage time and enable faster, more accurate fixes.</p>
+
+<div class="metrics-grid">
+  <div class="metric-card">
+    <h4>Reportability Score</h4>
+    <p>% of bugs filed with all required fields: repro steps, expected/actual behavior, severity, and spec link</p>
+    <div class="target">Target: > 85%</div>
+  </div>
+  <div class="metric-card">
+    <h4>Reproduction Rate</h4>
+    <p>% of reported bugs that can be reliably reproduced from the filed report without additional context</p>
+    <div class="target">Target: > 90%</div>
+  </div>
+  <div class="metric-card">
+    <h4>Spec Attribution Rate</h4>
+    <p>% of bugs linked to their originating spec. Enables spec-level quality tracking and root-cause analysis.</p>
+    <div class="target">Target: > 95%</div>
+  </div>
+  <div class="metric-card">
+    <h4>Triage Time</h4>
+    <p>Average time from bug reported to triaged (severity confirmed, root cause classified, owner assigned)</p>
+    <div class="target">Target: &lt; 4 hours for P0/P1 · &lt; 1 day for P2/P3</div>
+  </div>
+</div>
+
+<h3>ADO Configuration for Bugs</h3>
+<div class="metrics-grid">
+  <div class="metric-card">
+    <h4>Required Bug Fields</h4>
+    <p>Configure ADO Bug work item with required fields: Severity (P0-P3), Repro Steps, Expected Behavior, Actual Behavior, Originating Spec (linked work item), and Root-Cause Category.</p>
+  </div>
+  <div class="metric-card">
+    <h4>Bug Dashboard Widgets</h4>
+    <p>Add to ADO dashboard: open bugs by severity, MTTR trend chart, root-cause distribution pie chart, bugs-per-spec scatter plot, and reportability score trend.</p>
+  </div>
+  <div class="metric-card">
+    <h4>Bug Queries</h4>
+    <p>Create saved queries: "Open P0/P1 bugs," "Bugs without spec link," "Bugs reopened this cycle," "Bugs by root-cause category," and "Stale bugs (open > 2 cycles)."</p>
+  </div>
+  <div class="metric-card">
+    <h4>Cycle Retro Integration</h4>
+    <p>Review bug metrics every Cycle Retro. Focus on: root-cause trends, specs producing the most bugs, reportability gaps, and MTTR outliers. Feed insights into spec quality improvements.</p>
+  </div>
+</div>
+
 <a href="index.html" class="back-link">← Back to Overview</a>
 
 <footer>
