@@ -165,6 +165,54 @@
   <p>Target 70%+ first-pass acceptance rate from agents. If you're below that, the problem is usually upstream — vague specs, insufficient context in CLAUDE.md, or prompts that are too broad. Fix the inputs before blaming the agent.</p>
 </div>
 
+
+<!-- ============ SECURITY REVIEW ============ -->
+<h2 id="security">Security Review Process</h2>
+<p style="color: var(--muted); margin-bottom: 20px;">AI-generated code requires deliberate security review. Agents produce functional code quickly, but security vulnerabilities — auth bypasses, injection flaws, data exposure — require human judgment. Every spec with security implications must pass an explicit security gate.</p>
+
+<h3>Security Review Tiers</h3>
+<div class="tier strategic"><div class="tier-label"><strong>Tier 1 — Full</strong><span>Mandatory</span></div><div class="tier-desc"><strong>Auth, encryption, access control, PII handling</strong><span>Sr. Developer + Architect co-review. No agent-only implementation. Manual code review of every line in security-critical paths.</span></div></div>
+<div class="tier tactical"><div class="tier-label"><strong>Tier 2 — Targeted</strong><span>Flagged</span></div><div class="tier-desc"><strong>API endpoints, data validation, external integrations</strong><span>Sr. Developer reviews agent output with security checklist. Architect spot-checks. Automated SAST scan required.</span></div></div>
+<div class="tier operational"><div class="tier-label"><strong>Tier 3 — Standard</strong><span>Default</span></div><div class="tier-desc"><strong>Internal logic, UI components, utilities</strong><span>Normal review workflow applies. Automated security scanning in CI/CD catches common issues.</span></div></div>
+
+<h3>Security Checklist for AI-Generated Code</h3>
+<div class="metrics-grid">
+  <div class="metric-card">
+    <h4>Authentication &amp; Authorization</h4>
+    <p>Verify auth checks on every endpoint. Confirm role-based access control is enforced, not just checked at the UI layer. Review token handling, session management, and credential storage.</p>
+  </div>
+  <div class="metric-card">
+    <h4>Input Validation &amp; Injection</h4>
+    <p>Check all user inputs are validated and sanitized. Review SQL queries for injection risk. Verify API parameters are typed and bounded. Check for command injection in shell calls.</p>
+  </div>
+  <div class="metric-card">
+    <h4>Data Exposure &amp; Privacy</h4>
+    <p>Confirm PII is not logged or exposed in error messages. Verify API responses do not leak internal data. Check that sensitive fields are masked in logs and audit trails.</p>
+  </div>
+  <div class="metric-card">
+    <h4>Dependency &amp; Configuration</h4>
+    <p>Verify no hallucinated packages were added. Check that dependencies are pinned and from trusted sources. Confirm no secrets are hardcoded. Review environment-specific configurations.</p>
+  </div>
+</div>
+
+<h3>Agent-Specific Security Risks</h3>
+<div class="callout">
+  <h4>What AI Gets Wrong</h4>
+  <p>AI agents have predictable security blind spots: they tend to implement “happy path” auth without edge cases, use deprecated crypto functions from training data, skip rate limiting on new endpoints, and expose verbose error details in API responses. The security checklist above targets these patterns specifically. When reviewing agent-generated code, assume these gaps exist and verify each one.</p>
+</div>
+
+<div class="comparison">
+  <div class="compare-box before">
+    <h4>&#x26A0;&#xFE0F; Never Delegate to Agents</h4>
+    <p>Cryptographic implementations, OAuth/OIDC flows, access control policies, secrets management, security middleware, and compliance-sensitive data handling. These require human implementation or line-by-line human review of every agent output.</p>
+  </div>
+  <div class="compare-box after">
+    <h4>&#x2705; Safe for Agent Implementation</h4>
+    <p>Input validation helpers (with human-reviewed rules), logging frameworks (after confirming PII filtering), standard CRUD operations on non-sensitive models, unit tests for security functions (with human-written test cases).</p>
+  </div>
+</div>
+
+
 <a href="work-management.html#spec-flow" class="back-link">← See full Spec Flow in Work Management</a>
 
 <footer>

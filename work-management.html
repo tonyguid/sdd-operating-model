@@ -518,6 +518,91 @@
   </div>
 </div>
 
+
+<!-- ============ INCIDENT RESPONSE ============ -->
+<h2 id="incident-response"><span class="num">08</span> Incident Response</h2>
+<p style="color: var(--muted); margin-bottom: 20px;">How the SDD team handles production incidents. Bug resolution covers known defects; incident response covers unplanned outages, degradations, and emergencies that require immediate coordinated action.</p>
+
+<h3>Incident Severity &amp; Response Times</h3>
+<table class="wide-table">
+  <thead><tr><th>Severity</th><th>Definition</th><th>Response Time</th><th>Resolution Target</th><th>Comms Cadence</th></tr></thead>
+  <tbody>
+    <tr><td><strong>SEV-1</strong></td><td>Full system outage or data loss</td><td>&lt; 15 min</td><td>&lt; 4 hours</td><td>Every 30 min</td></tr>
+    <tr><td><strong>SEV-2</strong></td><td>Major feature broken, no workaround</td><td>&lt; 30 min</td><td>&lt; 8 hours</td><td>Every 1 hour</td></tr>
+    <tr><td><strong>SEV-3</strong></td><td>Feature degraded, workaround exists</td><td>&lt; 2 hours</td><td>Next business day</td><td>Daily update</td></tr>
+    <tr><td><strong>SEV-4</strong></td><td>Minor issue, low impact</td><td>Next business day</td><td>Next cycle</td><td>Tracked in ADO</td></tr>
+  </tbody>
+</table>
+
+<h3>Incident Workflow</h3>
+<div class="lifecycle">
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:#EF4444">1</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:#EF4444">Detect &amp; Alert</h4>
+      <div class="owner">Owner: Monitoring / On-Call Sr. Developer</div>
+      <p>Automated monitoring detects the issue or a user reports it. On-call Sr. Developer acknowledges the alert, assesses severity, and opens an incident in ADO. Stakeholders notified via the incident channel.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--amber)">2</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--amber)">Triage &amp; Mobilize</h4>
+      <div class="owner">Owner: On-Call Sr. Developer + TPM</div>
+      <p>Confirm severity level and blast radius. For SEV-1/SEV-2: pull in Architect if architectural root cause suspected, notify Dev Manager, TPM begins stakeholder communication. Assign an Incident Commander (typically the on-call Sr. Dev).</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--purple)">3</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--purple)">Mitigate &amp; Fix</h4>
+      <div class="owner">Owner: Incident Commander (Sr. Developer)</div>
+      <p>First priority: restore service (rollback, feature flag, config change). Second priority: root-cause fix. Agent teams can be used for the fix but the Sr. Dev must review security and correctness manually. All changes go through expedited PR review.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--green)">4</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--green)">Verify &amp; Close</h4>
+      <div class="owner">Owner: Incident Commander + Reporter</div>
+      <p>Confirm the fix resolves the incident. Monitoring returns to normal. Incident ADO item updated with timeline, root cause, and resolution. Incident closed and stakeholders notified.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--blue)">5</div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--blue)">Post-Mortem</h4>
+      <div class="owner">Owner: Dev Manager + Incident Commander</div>
+      <p>Blameless post-mortem within 48 hours of SEV-1/SEV-2 resolution. Document: timeline, root cause (5 Whys), impact, what worked, what failed, and action items. Link post-mortem to originating spec. Feed findings into Architecture Review ceremony.</p>
+    </div>
+  </div>
+</div>
+
+<h3>On-Call &amp; Escalation</h3>
+<div class="metrics-grid">
+  <div class="metric-card">
+    <h4>On-Call Rotation</h4>
+    <p>Sr. Developers rotate weekly on-call. One primary, one secondary. On-call engineer has authority to bypass normal spec queue for emergency fixes. Dev Manager maintains the rotation schedule.</p>
+  </div>
+  <div class="metric-card">
+    <h4>Escalation Path</h4>
+    <p>Sr. Developer (15 min) &#x2192; Architect (30 min, if architectural) &#x2192; Dev Manager (1 hr, if unresolved) &#x2192; Chief Architect (2 hr, if SEV-1 persists). Each escalation adds resources, not replaces.</p>
+  </div>
+  <div class="metric-card">
+    <h4>Communication Protocol</h4>
+    <p>Dedicated incident channel created per SEV-1/SEV-2. TPM posts status updates at the defined cadence. External stakeholder comms owned by TPM. All updates posted to ADO incident item.</p>
+  </div>
+  <div class="metric-card">
+    <h4>Incident Metrics</h4>
+    <p>Track: MTTA (mean time to acknowledge), MTTR (mean time to resolve), incidents per cycle, SEV-1/SEV-2 frequency trend, post-mortem completion rate, and action item closure rate.</p>
+  </div>
+</div>
+
+<div class="callout">
+  <h4>Incidents vs. Bugs</h4>
+  <p>Bugs are defects discovered through testing or user reports that degrade functionality. Incidents are unplanned disruptions requiring immediate coordinated response. A bug becomes an incident when it causes user-facing impact at SEV-1 or SEV-2 severity. After incident resolution, file a bug for the underlying defect and link it to the incident and originating spec.</p>
+</div>
+
 <a href="index.html" class="back-link">← Back to Overview</a>
 
 <footer>

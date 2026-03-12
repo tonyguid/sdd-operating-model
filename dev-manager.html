@@ -57,6 +57,73 @@
   </div>
 </div>
 
+
+<!-- ============ AI COST MANAGEMENT ============ -->
+<h2 id="ai-costs">AI Cost Management</h2>
+<p style="color: var(--muted); margin-bottom: 20px;">Claude Code API usage is a direct operating cost. Dev Managers own cost visibility, budgeting, and optimization — ensuring AI leverage delivers ROI, not runaway spend.</p>
+
+<h3>Cost Visibility</h3>
+<div class="metrics-grid">
+  <div class="metric-card">
+    <h4>Cost per Spec</h4>
+    <p>Track Claude API cost for each spec by complexity tier. Establish baselines: what does a typical S, M, or L spec cost in API tokens? Use this to forecast cycle budgets.</p>
+    <div class="target">Track: $/spec by S/M/L</div>
+  </div>
+  <div class="metric-card">
+    <h4>Cost per Developer</h4>
+    <p>Monthly Claude API spend per Sr. Developer. Identifies outliers — high spend may indicate inefficient prompts or unnecessary iterations; low spend may indicate underutilization.</p>
+    <div class="target">Track: $/developer/month</div>
+  </div>
+  <div class="metric-card">
+    <h4>Cost vs. Output Ratio</h4>
+    <p>API cost divided by specs delivered. The key efficiency metric. If cost-per-spec is rising while output is flat, investigate prompt quality, spec clarity, or agent pattern selection.</p>
+    <div class="target">Target: Track trend &#x2193;</div>
+  </div>
+  <div class="metric-card">
+    <h4>Token Usage Breakdown</h4>
+    <p>Input tokens vs. output tokens vs. wasted tokens (from rejected/re-run prompts). High input-to-output ratio may indicate over-contexting. High waste ratio means poor first-pass quality.</p>
+    <div class="target">Target: Waste ratio &lt; 20%</div>
+  </div>
+</div>
+
+<h3>Budget &amp; Controls</h3>
+<div class="metrics-grid">
+  <div class="metric-card">
+    <h4>Monthly Budget Allocation</h4>
+    <p>Set a monthly API budget per team based on planned spec volume and complexity mix. Include a 15-20% buffer for unplanned work (bug fixes, incidents, spikes). Review quarterly with finance.</p>
+  </div>
+  <div class="metric-card">
+    <h4>Spending Alerts</h4>
+    <p>Configure alerts at 70%, 85%, and 95% of monthly budget. At 85%, Dev Manager reviews with team to prioritize remaining spend. At 95%, escalate to leadership for budget adjustment or reprioritization.</p>
+  </div>
+  <div class="metric-card">
+    <h4>Per-Developer Guardrails</h4>
+    <p>Set soft daily and weekly spend caps per Sr. Developer. Not punitive — designed to catch runaway loops (agent stuck in iteration cycles) early. Auto-alert, not auto-block.</p>
+  </div>
+  <div class="metric-card">
+    <h4>ROI Reporting</h4>
+    <p>Report monthly: total AI spend vs. estimated equivalent headcount cost. Frame as "cost of N specs delivered via AI vs. cost of traditional delivery." Present to leadership quarterly.</p>
+  </div>
+</div>
+
+<h3>Optimization Strategies</h3>
+<div class="comparison">
+  <div class="compare-box before">
+    <h4>&#x274C; Common Waste Patterns</h4>
+    <p>Overly broad prompts that produce rejected output. Massive context windows with irrelevant files. Repeated iterations due to vague specs. Running parallel agents when sequential would suffice. Agent loops on impossible tasks without human intervention.</p>
+  </div>
+  <div class="compare-box after">
+    <h4>&#x2705; Cost-Efficient Practices</h4>
+    <p>Precise prompts with targeted context. Spec review gate catches ambiguity before agents run. Prompt libraries reduce experimentation. Right-sizing agent patterns to spec complexity (single agent for S specs). Kill switches for stuck agents.</p>
+  </div>
+</div>
+
+<div class="callout">
+  <h4>The ROI Equation</h4>
+  <p>AI cost is not an expense line — it replaces headcount cost. One Sr. Developer + Claude Code at $X/month in API costs replaces 3-5 traditional developer salaries. Track the ratio: if total cost (salary + API) per spec delivered is lower than the pre-AI baseline, the model is working. If not, investigate prompt efficiency, spec quality, or team maturity.</p>
+</div>
+
+
 <a href="index.html#principles" class="back-link">← See Core Principles</a>
 
 <footer>
