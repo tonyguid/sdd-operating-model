@@ -26,15 +26,32 @@
   <a href="work-management.html" class="nav-link">Work Mgmt</a>
 </nav>
 
-<p class="lead">This document defines the operating model for Qcells software engineering teams using AI-augmented, specification-driven development. Architects specify designs, senior developers use Claude Code agent teams to implement, TPMs track delivery, and dev managers oversee people and process.</p>
+<p class="lead">This operating model defines how Qcells software engineering teams build software using AI-augmented, specification-driven development. It answers three questions: what roles do we need, how do specs flow from idea to production, and how do we manage the work day-to-day.</p>
 
-<div class="callout">
-  <h4>💡 The Core Idea</h4>
-  <p>The specification becomes the atomic unit of planning, execution, and reporting. Every role's work revolves around writing, implementing, or tracking specs. AI handles the code generation; humans handle the judgment.</p>
+<!-- ============ CORE PRINCIPLES ============ -->
+<h2 id="principles"><span class="num">01</span> Core Principles</h2>
+
+<div class="metrics-grid">
+  <div class="metric-card">
+    <h4>📄 Specs Are the Atomic Unit</h4>
+    <p>Every piece of work is a spec — architecture-grade documents with API contracts, data models, and acceptance criteria. Not user stories. Not tickets. Specs are what architects write and what agents implement.</p>
+  </div>
+  <div class="metric-card">
+    <h4>🤖 AI Writes Code, Humans Provide Judgment</h4>
+    <p>Senior developers orchestrate Claude Code agent teams to implement specs at 3–5x throughput. The role shifts from writing code to directing and curating code.</p>
+  </div>
+  <div class="metric-card">
+    <h4>👥 Smaller, Senior-Heavy Teams</h4>
+    <p>Fewer people, higher caliber. One Sr. Developer with Claude Code agent teams matches the output of 3–5 traditional developers. Quality comes from spec precision, not headcount.</p>
+  </div>
+  <div class="metric-card">
+    <h4>📊 Track Outcomes, Not Effort</h4>
+    <p>Progress is measured in delivered specs and verified functionality — not story points or hours. Direct traceability from investment → spec → feature → business value.</p>
+  </div>
 </div>
 
 <!-- ============ ROLES ============ -->
-<h2 id="roles"><span class="num">01</span> Roles & Responsibilities</h2>
+<h2 id="roles"><span class="num">02</span> Roles</h2>
 
 <div class="role-grid">
   <a href="product-owner.html" class="role-summary po">
@@ -42,7 +59,7 @@
       <span class="role-icon">📋</span>
       <div><div class="role-title">Product Owner</div><div class="role-ratio">1 per 1–2 product domains</div></div>
     </div>
-    <div class="role-mission">Own product vision, business requirements, and feature acceptance — bridge business stakeholders and engineering teams.</div>
+    <div class="role-mission">Own product vision, business requirements, and feature acceptance.</div>
     <span class="role-link">View Details →</span>
   </a>
   <a href="architect.html" class="role-summary architect">
@@ -66,7 +83,7 @@
       <span class="role-icon">📊</span>
       <div><div class="role-title">TPM</div><div class="role-ratio">1 per 3–4 product domains</div></div>
     </div>
-    <div class="role-mission">Prioritize, sequence, and track spec-driven delivery — own the roadmap, reporting, and cross-team coordination.</div>
+    <div class="role-mission">Prioritize, sequence, and track spec-driven delivery — own roadmap and coordination.</div>
     <span class="role-link">View Details →</span>
   </a>
   <a href="dev-manager.html" class="role-summary devmgr">
@@ -74,63 +91,41 @@
       <span class="role-icon">🎯</span>
       <div><div class="role-title">Dev Manager</div><div class="role-ratio">1 per 6–10 senior developers</div></div>
     </div>
-    <div class="role-mission">Oversee team health, process quality, and continuous improvement — own people, process, and culture.</div>
+    <div class="role-mission">Oversee team health, process quality, and continuous improvement.</div>
     <span class="role-link">View Details →</span>
   </a>
 </div>
 
-<!-- ============ LIFECYCLE ============ -->
-<h2 id="lifecycle"><span class="num">02</span> Spec Lifecycle</h2>
-<p style="color: var(--muted); margin-bottom: 20px;">Every piece of work flows through these seven phases. The spec is the thread that connects them all.</p>
+<!-- ============ HOW IT WORKS ============ -->
+<h2 id="how-it-works"><span class="num">03</span> How It Works</h2>
+<p style="color: var(--muted); margin-bottom: 20px;">The model covers three dimensions. Each links to a dedicated detail page.</p>
 
-<div class="lifecycle">
-  <div class="phase">
-    <div class="phase-num"><div class="phase-dot" style="background:var(--blue)">1</div><div class="phase-line"></div></div>
-    <div class="phase-content"><h4 style="color:var(--blue)">Spec</h4><div class="owner">Owner: Architect</div><p>Architect writes a detailed spec with API contracts, data models, system flows, and acceptance criteria.</p></div>
-  </div>
-  <div class="phase">
-    <div class="phase-num"><div class="phase-dot" style="background:#6366F1">2</div><div class="phase-line"></div></div>
-    <div class="phase-content"><h4 style="color:#6366F1">Review</h4><div class="owner">Owner: Architect + Sr. Developer</div><p>Spec reviewed for clarity, feasibility, and completeness. Sr. Dev validates it can be effectively translated to agent prompts.</p></div>
-  </div>
-  <div class="phase">
-    <div class="phase-num"><div class="phase-dot" style="background:var(--amber)">3</div><div class="phase-line"></div></div>
-    <div class="phase-content"><h4 style="color:var(--amber)">Prioritize</h4><div class="owner">Owner: TPM</div><p>TPM sequences the spec into the sprint/cycle based on roadmap priorities and cross-team dependencies.</p></div>
-  </div>
-  <div class="phase">
-    <div class="phase-num"><div class="phase-dot" style="background:var(--purple)">4</div><div class="phase-line"></div></div>
-    <div class="phase-content"><h4 style="color:var(--purple)">Implement</h4><div class="owner">Owner: Sr. Developer</div><p>Sr. Dev orchestrates Claude Code agent teams to build against the spec. Prompts derived from spec content.</p></div>
-  </div>
-  <div class="phase">
-    <div class="phase-num"><div class="phase-dot" style="background:#EC4899">5</div><div class="phase-line"></div></div>
-    <div class="phase-content"><h4 style="color:#EC4899">Validate</h4><div class="owner">Owner: Sr. Developer + Architect</div><p>Code reviewed against spec. Architecture compliance checked. Acceptance criteria verified.</p></div>
-  </div>
-  <div class="phase">
-    <div class="phase-num"><div class="phase-dot" style="background:var(--green)">6</div><div class="phase-line"></div></div>
-    <div class="phase-content"><h4 style="color:var(--green)">Ship</h4><div class="owner">Owner: Sr. Developer</div><p>Merged, deployed, and marked done in tracking. Spec status updated.</p></div>
-  </div>
-  <div class="phase">
-    <div class="phase-num"><div class="phase-dot" style="background:var(--amber)">7</div></div>
-    <div class="phase-content"><h4 style="color:var(--amber)">Report</h4><div class="owner">Owner: TPM</div><p>Progress rolled up from specs → features → milestones for executive reporting.</p></div>
-  </div>
-</div>
-
-<h3>Feedback Loops</h3>
 <div class="metrics-grid">
-  <div class="metric-card"><h4>Sr. Dev → Architect</h4><p>Spec gaps or ambiguities discovered during implementation feed back into spec improvements.</p></div>
-  <div class="metric-card"><h4>Architect → Sr. Dev</h4><p>Code review findings inform spec template and prompt library improvements.</p></div>
-  <div class="metric-card"><h4>TPM → Architect</h4><p>Velocity data informs spec sizing, decomposition, and planning accuracy.</p></div>
-  <div class="metric-card"><h4>Dev Mgr → All</h4><p>Process health insights drive continuous improvement across all roles.</p></div>
+  <div class="metric-card">
+    <h4>🔄 Spec Lifecycle</h4>
+    <p>Seven phases from idea to production: Spec → Review → Prioritize → Implement → Validate → Ship → Report. The spec is the thread connecting every role and phase.</p>
+    <div class="target"><a href="work-management.html#spec-flow" style="color:var(--blue); text-decoration:none; font-weight:600;">See full flow in Work Mgmt →</a></div>
+  </div>
+  <div class="metric-card">
+    <h4>🤖 Agent Team Patterns</h4>
+    <p>Four patterns for structuring Claude Code agents: lead + sub-agent, parallel execution, sequential pipeline, and single agent. Match the pattern to the spec complexity.</p>
+    <div class="target"><a href="senior-developer.html" style="color:var(--purple); text-decoration:none; font-weight:600;">See patterns in Sr. Developer →</a></div>
+  </div>
+  <div class="metric-card">
+    <h4>📋 Work Management</h4>
+    <p>Scrum-to-SDD mapping, Azure DevOps board setup with spec-based columns, 2-week spec cycles, and 6 adapted ceremonies. Estimation uses S/M/L spec complexity, not story points.</p>
+    <div class="target"><a href="work-management.html" style="color:var(--blue); text-decoration:none; font-weight:600;">See full details in Work Mgmt →</a></div>
+  </div>
+  <div class="metric-card">
+    <h4>✅ Quality & Review</h4>
+    <p>When to accept, iterate, or intervene manually on agent output. The 70/30 rule: target 70%+ first-pass acceptance. If below, fix the inputs — specs, context, or prompts.</p>
+    <div class="target"><a href="senior-developer.html#quality" style="color:var(--purple); text-decoration:none; font-weight:600;">See workflow in Sr. Developer →</a></div>
+  </div>
 </div>
 
-<!-- ============ EXEC VIEW ============ -->
-<h2 id="exec-reporting"><span class="num">03</span> Executive Reporting</h2>
+<!-- ============ KEY METRICS ============ -->
+<h2 id="metrics"><span class="num">04</span> Key Metrics</h2>
 
-<h3>Reporting Tiers</h3>
-<div class="tier strategic"><div class="tier-label"><strong>Strategic</strong><span>Monthly</span></div><div class="tier-desc"><strong>C-Suite / SVP</strong><span>Portfolio health, milestone delivery, investment ROI</span></div></div>
-<div class="tier tactical"><div class="tier-label"><strong>Tactical</strong><span>Bi-weekly</span></div><div class="tier-desc"><strong>Directors / VPs</strong><span>Feature completion rates, velocity trends, risk register</span></div></div>
-<div class="tier operational"><div class="tier-label"><strong>Operational</strong><span>Weekly</span></div><div class="tier-desc"><strong>Dev Mgrs / Architects</strong><span>Spec throughput, code quality, agent efficiency metrics</span></div></div>
-
-<h3>Key Metrics</h3>
 <div class="metrics-grid">
   <div class="metric-card"><h4>Spec-to-Ship Cycle Time</h4><p>Average days from spec drafted to production</p><div class="target">Target: Track trend ↓</div></div>
   <div class="metric-card"><h4>AI Leverage Ratio</h4><p>Output per developer vs. pre-AI baseline</p><div class="target">Target: 3–5×</div></div>
@@ -138,25 +133,6 @@
   <div class="metric-card"><h4>Roadmap Predictability</h4><p>% of planned specs delivered on schedule</p><div class="target">Target: > 80%</div></div>
   <div class="metric-card"><h4>Spec Rework Rate</h4><p>% of specs needing revision after implementation starts</p><div class="target">Target: < 15%</div></div>
   <div class="metric-card"><h4>Defect Escape Rate</h4><p>Production defects per spec delivered</p><div class="target">Target: Track trend ↓</div></div>
-</div>
-
-<!-- ============ BEFORE/AFTER ============ -->
-<h2 id="transformation"><span class="num">04</span> The Transformation</h2>
-
-<div class="comparison">
-  <div class="compare-box before">
-    <h4>❌ Before</h4>
-    <p>Large dev teams write code manually. Architects design, hand off, and hope. Progress is tracked in story points — an opaque proxy for value. Knowledge lives in people's heads.</p>
-  </div>
-  <div class="compare-box after">
-    <h4>✅ After</h4>
-    <p>Architects write precise specs. Senior devs use AI agent teams to implement at 3–5× velocity. Every spec maps to a feature. Progress is tracked in delivered, verified functionality — not effort.</p>
-  </div>
-</div>
-
-<div class="callout">
-  <h4>Bottom Line</h4>
-  <p>Smaller, senior-heavy teams. Higher throughput. Predictable delivery. Direct traceability from investment → spec → feature → business value.</p>
 </div>
 
 <!-- ============ FEEDBACK ============ -->

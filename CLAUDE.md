@@ -50,6 +50,16 @@ sdd-operating-model/
 - Status: DRAFT — this is an internal Qcells document under active review.
 - Owner: Chief Architect, Qcells.
 
+## Agent Team Configuration
+
+Use a **team of 3 agents** for all implementation tasks on this project. When executing work, launch 3 parallel sub-agents to maximize throughput. Typical decomposition:
+
+- **Agent 1:** HTML content creation or modification (new pages, new sections, content updates)
+- **Agent 2:** CSS styling and cross-file nav updates (styles.css changes, nav bar updates across all HTML files)
+- **Agent 3:** Documentation and verification (CLAUDE.md, README.md updates, browser preview verification)
+
+Adjust the split based on the task — the key principle is 3 agents running in parallel whenever possible.
+
 ## When Editing
 
 - Preserve the existing structure and tone of documents.
