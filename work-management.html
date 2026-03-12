@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work Management — AI + SDD Operating Model — Qcells</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>AI + Spec-Driven Development</h1>
+  <div class="subtitle">Operating Model — Qcells Software Engineering</div>
+  <div class="status-badge">📋 DRAFT — Feedback Requested</div>
+  <div class="meta">Author: Chief Architect &nbsp;|&nbsp; Last Updated: March 2026 &nbsp;|&nbsp; Version 0.1</div>
+</header>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-link">Overview</a>
+  <a href="product-owner.html" class="nav-link">Product Owner</a>
+  <a href="architect.html" class="nav-link">Architect</a>
+  <a href="senior-developer.html" class="nav-link">Sr. Developer</a>
+  <a href="tpm.html" class="nav-link">TPM</a>
+  <a href="dev-manager.html" class="nav-link">Dev Manager</a>
+  <a href="work-management.html" class="nav-link active">Work Mgmt</a>
+</nav>
+
+<p class="lead">How day-to-day work management operates in the SDD model. This page maps traditional Agile Scrum practices to their spec-driven equivalents, configured for Azure DevOps.</p>
+
+<!-- ============ SCRUM → SDD MAPPING ============ -->
+<h2 id="scrum-mapping"><span class="num">01</span> Scrum → SDD Mapping</h2>
+<p style="color: var(--muted); margin-bottom: 20px;">Every Scrum concept has an SDD equivalent. The core shift: specs replace stories as the atomic unit of work, and AI agents replace manual coding.</p>
+
+<table class="wide-table">
+  <thead><tr><th>Scrum Concept</th><th>SDD Equivalent</th><th>Key Difference</th></tr></thead>
+  <tbody>
+    <tr><td>Sprint (2 weeks)</td><td>Spec Cycle (2 weeks)</td><td>Spec-centered, not task-centered</td></tr>
+    <tr><td>User Story</td><td>Spec</td><td>Architecture-grade with API contracts and data models</td></tr>
+    <tr><td>Story Points</td><td>Spec Complexity (S/M/L)</td><td>Reflects agent scope, not human effort hours</td></tr>
+    <tr><td>Sprint Planning</td><td>Cycle Planning</td><td>TPM + Architects + Sr. Devs select and assign specs</td></tr>
+    <tr><td>Daily Standup</td><td>Daily Spec Sync</td><td>Shorter; focused on spec status and agent blockers</td></tr>
+    <tr><td>Sprint Review</td><td>Spec Demo</td><td>Maps directly to spec acceptance criteria</td></tr>
+    <tr><td>Sprint Retro</td><td>Cycle Retro</td><td>Includes agent efficiency and prompt quality review</td></tr>
+    <tr><td>Product Backlog</td><td>Spec Backlog</td><td>Items are fully specified architectural designs</td></tr>
+    <tr><td>Sprint Backlog</td><td>Cycle Backlog</td><td>Selected specs for the current cycle</td></tr>
+    <tr><td>Scrum Master</td><td>TPM</td><td>Plus program-level coordination and reporting</td></tr>
+    <tr><td>Product Owner</td><td>Product Owner</td><td>Must write more precise, testable acceptance criteria</td></tr>
+    <tr><td>Dev Team</td><td>Sr. Dev + Claude Code Agents</td><td>One human orchestrates AI agent teams</td></tr>
+    <tr><td>Definition of Ready</td><td>Spec Review Gate</td><td>Must pass Architect + Sr. Dev review before implementation</td></tr>
+    <tr><td>Definition of Done</td><td>Spec Verification Gate</td><td>Code reviewed, tests pass, AC verified, PO accepted</td></tr>
+    <tr><td>Velocity</td><td>Specs Delivered per Cycle</td><td>Measured by count and complexity, not story points</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <h4>The Biggest Shift</h4>
+  <p>Specs are not user stories. A spec contains the full architectural design — API contracts, data models, system flows, and acceptance criteria. This precision is what enables AI agents to generate high-quality code on the first pass.</p>
+</div>
+
+<!-- ============ ADO BOARD SETUP ============ -->
+<h2 id="ado-setup"><span class="num">02</span> Azure DevOps Board Setup</h2>
+<p style="color: var(--muted); margin-bottom: 20px;">How to configure Azure DevOps for spec-driven development. The work item hierarchy, board columns, and organizational structure.</p>
+
+<h3>Work Item Hierarchy</h3>
+<div class="lifecycle">
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:#EF4444">1</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:#EF4444">Epic</h4>
+      <div class="owner">Owner: Product Owner / TPM</div>
+      <p>Business-level initiative or program milestone. Represents a strategic investment. Example: "Customer Portal v2.0" or "Billing System Modernization."</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--amber)">2</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--amber)">Feature</h4>
+      <div class="owner">Owner: Product Owner + Architect</div>
+      <p>A deliverable capability within an epic. Decomposes into multiple specs. Example: "User Authentication Module" or "Invoice Generation Engine."</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--blue)">3</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--blue)">Spec (User Story type)</h4>
+      <div class="owner">Owner: Architect</div>
+      <p>The atomic unit. An architecture-grade specification with API contracts, data models, and acceptance criteria. This is what agents implement. Example: "Implement OAuth2 Authorization Code Flow."</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--muted)">4</div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--muted)">Task (optional)</h4>
+      <div class="owner">Owner: Sr. Developer</div>
+      <p>Manual intervention items only — work that agents cannot do. Infrastructure changes, vendor coordination, manual testing, security reviews. Most specs need zero tasks.</p>
+    </div>
+  </div>
+</div>
+
+<div class="callout">
+  <h4>ADO Work Item Type</h4>
+  <p>Use the "User Story" work item type for Specs. This maintains compatibility with existing ADO reporting, dashboards, and queries. Rename the display label in your project settings if desired, but keep the underlying type as "User Story."</p>
+</div>
+
+<h3>Board Columns (States)</h3>
+<div class="lifecycle">
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--muted)">1</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--muted)">Drafting</h4>
+      <div class="owner">WIP Limit: None</div>
+      <p>Architect is writing the spec. Work items created here with initial scope and linked to parent Feature/Epic.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:#6366F1">2</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:#6366F1">In Review</h4>
+      <div class="owner">WIP Limit: 3 per Architect</div>
+      <p>Architect and Sr. Developer review for clarity, feasibility, and agent-translatability. This is the Spec Review Gate.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--amber)">3</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--amber)">Ready</h4>
+      <div class="owner">WIP Limit: ~2x team capacity</div>
+      <p>Spec passed review gate. Queued for implementation. TPM sequences based on priority and dependencies.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--purple)">4</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--purple)">Implementing</h4>
+      <div class="owner">WIP Limit: 2–3 per Sr. Developer</div>
+      <p>Sr. Developer translates spec to agent prompts. Claude Code agent team executes. Sr. Dev monitors, iterates, and integrates output.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:#EC4899">5</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:#EC4899">Validating</h4>
+      <div class="owner">WIP Limit: 3 per reviewer</div>
+      <p>Code review against spec. Acceptance criteria verified. Tests pass. Architect checks architectural compliance. PO validates business intent.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--green)">6</div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--green)">Done</h4>
+      <div class="owner">Spec Verification Gate passed</div>
+      <p>PR merged. Deployed to target environment. Spec work item closed. Feature and Epic progress auto-updated in ADO.</p>
+    </div>
+  </div>
+</div>
+
+<h3>Swimlanes & Organization</h3>
+<div class="metrics-grid">
+  <div class="metric-card">
+    <h4>🏊 Swimlanes by Domain</h4>
+    <p>Create horizontal swimlanes for each product domain (e.g., "Customer Portal," "Billing Engine," "Admin Tools"). Gives instant visual of where work is concentrated.</p>
+  </div>
+  <div class="metric-card">
+    <h4>🏷️ Tags for Metadata</h4>
+    <p>Tag every spec with: complexity (S/M/L), agent pattern (single/parallel/pipeline/lead-sub), domain, and priority tier. Enables powerful filtering and reporting.</p>
+  </div>
+  <div class="metric-card">
+    <h4>📊 ADO Queries</h4>
+    <p>Create saved queries: "Specs blocked in Review > 2 days," "Implementing WIP over limit," "Ready queue depth," and "Cycle velocity by size."</p>
+  </div>
+  <div class="metric-card">
+    <h4>📈 ADO Dashboards</h4>
+    <p>Build dashboards showing: cumulative flow diagram, cycle time distribution, specs by state, and velocity trend by complexity tier.</p>
+  </div>
+</div>
+
+<!-- ============ CEREMONIES ============ -->
+<h2 id="ceremonies"><span class="num">03</span> Ceremonies & Cadences</h2>
+<p style="color: var(--muted); margin-bottom: 20px;">SDD ceremonies are lighter and more focused than traditional Scrum. Agent execution reduces coordination overhead — the focus shifts to spec quality and review throughput.</p>
+
+<div class="lifecycle">
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--amber)">1</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--amber)">Cycle Planning</h4>
+      <div class="owner">Replaces: Sprint Planning &nbsp;·&nbsp; Every 2 weeks &nbsp;·&nbsp; 60–90 min</div>
+      <p>TPM facilitates. Architects, Sr. Developers, and Product Owner attend. Select specs for the cycle from the Ready queue, confirm sizing (S/M/L), identify cross-spec dependencies, and assign specs to Sr. Developers.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--purple)">2</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--purple)">Daily Spec Sync</h4>
+      <div class="owner">Replaces: Daily Standup &nbsp;·&nbsp; Daily &nbsp;·&nbsp; 10–15 min (async option)</div>
+      <p>Sr. Developers and TPM. Quick status on each in-flight spec: on track, blocked, or needs iteration. Focus on blockers and agent issues. Much shorter than traditional standups since agents do the execution.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--green)">3</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--green)">Spec Demo</h4>
+      <div class="owner">Replaces: Sprint Review &nbsp;·&nbsp; Every 2 weeks &nbsp;·&nbsp; 30–45 min</div>
+      <p>Product Owner, stakeholders, Architects, Sr. Developers, TPM. Demo completed specs against acceptance criteria. Show working functionality. PO accepts or requests changes.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--blue)">4</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--blue)">Cycle Retro</h4>
+      <div class="owner">Replaces: Sprint Retrospective &nbsp;·&nbsp; Every 2 weeks &nbsp;·&nbsp; 30–45 min</div>
+      <p>All team members. Review process metrics: agent efficiency, first-pass acceptance rate, spec quality, prompt effectiveness. Identify workflow improvements. Dev Manager facilitates.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:#6366F1">5</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:#6366F1">Spec Refinement</h4>
+      <div class="owner">Replaces: Backlog Grooming &nbsp;·&nbsp; Weekly &nbsp;·&nbsp; 45–60 min</div>
+      <p>Architects, Sr. Developers, Product Owner. Refine upcoming specs to ensure they pass the Review Gate. Validate that specs are clear, complete, and agent-translatable. Split large specs if needed.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:#EC4899">6</div></div>
+    <div class="phase-content">
+      <h4 style="color:#EC4899">Architecture Review</h4>
+      <div class="owner">New ceremony &nbsp;·&nbsp; Bi-weekly or monthly &nbsp;·&nbsp; 60 min</div>
+      <p>Architects, Sr. Developers, Dev Manager. Review architectural decisions, pattern compliance, technical debt, and cross-domain consistency. Ensure agent-generated code maintains architectural integrity over time.</p>
+    </div>
+  </div>
+</div>
+
+<h3>Cadence Summary</h3>
+<table class="wide-table">
+  <thead><tr><th>Ceremony</th><th>Frequency</th><th>Duration</th><th>Key Attendees</th><th>Replaces</th></tr></thead>
+  <tbody>
+    <tr><td>Cycle Planning</td><td>Every 2 weeks</td><td>60–90 min</td><td>TPM, Architects, Sr. Devs, PO</td><td>Sprint Planning</td></tr>
+    <tr><td>Daily Spec Sync</td><td>Daily</td><td>10–15 min</td><td>Sr. Devs, TPM</td><td>Daily Standup</td></tr>
+    <tr><td>Spec Demo</td><td>Every 2 weeks</td><td>30–45 min</td><td>PO, Stakeholders, Team</td><td>Sprint Review</td></tr>
+    <tr><td>Cycle Retro</td><td>Every 2 weeks</td><td>30–45 min</td><td>All team members</td><td>Sprint Retro</td></tr>
+    <tr><td>Spec Refinement</td><td>Weekly</td><td>45–60 min</td><td>Architects, Sr. Devs, PO</td><td>Backlog Grooming</td></tr>
+    <tr><td>Architecture Review</td><td>Bi-weekly/monthly</td><td>60 min</td><td>Architects, Sr. Devs, Dev Mgr</td><td>(New)</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <h4>Async-First Option</h4>
+  <p>The Daily Spec Sync can be fully async via ADO board updates and a shared Teams/Slack channel post. If all specs are green and no blockers exist, skip the synchronous meeting. The ceremony is optional when the board tells the full story.</p>
+</div>
+
+<!-- ============ ESTIMATION ============ -->
+<h2 id="estimation"><span class="num">04</span> Estimation & Planning</h2>
+<p style="color: var(--muted); margin-bottom: 20px;">Spec sizing replaces story point estimation. Size reflects agent work scope and complexity, not human effort hours.</p>
+
+<h3>Spec Sizing</h3>
+<div class="tier operational"><div class="tier-label"><strong>Small (S)</strong><span>&lt; 1 day</span></div><div class="tier-desc"><strong>Single agent &nbsp;·&nbsp; 1–2 files</strong><span>Bug fix, single endpoint, UI tweak, config change, simple refactor</span></div></div>
+<div class="tier tactical"><div class="tier-label"><strong>Medium (M)</strong><span>1–2 days</span></div><div class="tier-desc"><strong>Multi-agent &nbsp;·&nbsp; 3–5 files</strong><span>New feature module, API + UI integration, data migration with validation</span></div></div>
+<div class="tier strategic"><div class="tier-label"><strong>Large (L)</strong><span>2–5 days</span></div><div class="tier-desc"><strong>Agent team &nbsp;·&nbsp; 6+ files</strong><span>Cross-cutting feature, new subsystem, major refactor, multi-service integration</span></div></div>
+
+<h3>Planning Metrics</h3>
+<div class="metrics-grid">
+  <div class="metric-card">
+    <h4>📊 Velocity Tracking</h4>
+    <p>Track specs delivered per cycle, broken down by size. Example: 8S + 4M + 1L = 13 specs/cycle. Trend over time to calibrate future planning.</p>
+    <div class="target">Track: Specs per cycle by size</div>
+  </div>
+  <div class="metric-card">
+    <h4>👨‍💻 Sr. Dev Capacity</h4>
+    <p>One Sr. Dev can typically run 3–4 Small, 2–3 Medium, or 1 Large spec per cycle. Adjust based on domain complexity and agent maturity.</p>
+    <div class="target">Baseline: 6–8 "S-equivalents" per cycle</div>
+  </div>
+  <div class="metric-card">
+    <h4>⚡ Agent Multiplier</h4>
+    <p>AI agents provide 3–5x throughput vs. traditional coding. But the bottleneck shifts to spec quality and review. Plan review capacity, not just implementation capacity.</p>
+    <div class="target">Target: 3–5x output per developer</div>
+  </div>
+  <div class="metric-card">
+    <h4>🛡️ Cycle Buffer</h4>
+    <p>Reserve 15–20% of cycle capacity for unplanned work: production issues, urgent specs, agent rework. A cycle at 100% planned capacity will slip.</p>
+    <div class="target">Target: 80–85% planned utilization</div>
+  </div>
+</div>
+
+<div class="callout">
+  <h4>Don't Convert to Hours</h4>
+  <p>Do not convert spec sizes to hours or story points. Spec complexity (S/M/L) reflects the scope of agent work, not human effort. A Large spec might take 2–5 days of agent execution but only a few hours of human orchestration and review. Traditional estimation models do not apply.</p>
+</div>
+
+<!-- ============ SPEC FLOW ============ -->
+<h2 id="spec-flow"><span class="num">05</span> Spec Flow Through ADO</h2>
+<p style="color: var(--muted); margin-bottom: 20px;">How a single spec moves through the Azure DevOps board from creation to completion, with ownership transitions at each gate.</p>
+
+<div class="lifecycle">
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--blue)">1</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--blue)">Drafted</h4>
+      <div class="owner">Owner: Architect</div>
+      <p>Architect creates spec work item in ADO. Links to parent Feature and Epic. Fills in spec template: scope, API contracts, data models, acceptance criteria. Adds complexity tag (S/M/L) and domain tag.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:#6366F1">2</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:#6366F1">In Review</h4>
+      <div class="owner">Owner: Architect + Sr. Developer</div>
+      <p>Architect moves spec to "In Review." Both Architect and Sr. Developer review for clarity, feasibility, and agent-translatability. Sr. Dev validates it can be effectively turned into agent prompts. Questions resolved before proceeding.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--amber)">3</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--amber)">Ready</h4>
+      <div class="owner">Owner: TPM</div>
+      <p>Spec passes the Review Gate. Queued for implementation in the next available cycle. TPM sequences based on roadmap priority, cross-team dependencies, and Sr. Dev capacity.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--purple)">4</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--purple)">Implementing</h4>
+      <div class="owner">Owner: Sr. Developer</div>
+      <p>Sr. Dev picks up the spec. Translates to Claude Code agent prompts. Selects agent pattern (single, parallel, pipeline, lead-sub). Agent team executes. Sr. Dev monitors, iterates on output, and integrates results.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:#EC4899">5</div><div class="phase-line"></div></div>
+    <div class="phase-content">
+      <h4 style="color:#EC4899">Validating</h4>
+      <div class="owner">Owner: Sr. Developer + Architect + PO</div>
+      <p>Code reviewed against spec. Each acceptance criterion mapped to delivered code. Full test suite passes. Architect checks architectural compliance. PO validates business intent is met.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num"><div class="phase-dot" style="background:var(--green)">6</div></div>
+    <div class="phase-content">
+      <h4 style="color:var(--green)">Done</h4>
+      <div class="owner">Verification Gate passed</div>
+      <p>PR merged and deployed. Spec work item closed in ADO. Feature and Epic progress auto-updated. Spec marked as delivered in TPM reporting.</p>
+    </div>
+  </div>
+</div>
+
+<div class="callout">
+  <h4>Transition Comments</h4>
+  <p>Every state transition in ADO should include a comment summarizing what happened. For "Implementing → Validating," the Sr. Dev should note which agent pattern was used, how many iterations it took, and any manual interventions required. This data feeds into cycle retros and process improvement.</p>
+</div>
+
+<!-- ============ KEY DIFFERENCES ============ -->
+<h2 id="key-differences"><span class="num">06</span> Key Differences from Traditional Scrum</h2>
+<p style="color: var(--muted); margin-bottom: 20px;">What fundamentally changes when AI agents handle the coding and specs replace stories.</p>
+
+<div class="comparison">
+  <div class="compare-box before">
+    <h4>❌ Traditional Scrum</h4>
+    <p>Tasks are the unit of work. Developers spend most time writing code. Estimation is in story points reflecting human effort. "In Progress" means a developer is coding. WIP limits apply to tasks per person. Velocity is measured in story points burned.</p>
+  </div>
+  <div class="compare-box after">
+    <h4>✅ Spec-Driven Development</h4>
+    <p>Specs are the unit of work. Sr. Developers orchestrate agents and review output. Estimation is spec complexity (S/M/L) reflecting agent scope. "In Progress" means an agent team is executing. WIP limits apply to specs per Sr. Dev. Velocity is measured in specs delivered.</p>
+  </div>
+</div>
+
+<div class="comparison" style="margin-top: 0;">
+  <div class="compare-box before">
+    <h4>❌ Traditional Bottleneck</h4>
+    <p>Coding capacity. Need more developers to deliver more. Knowledge is distributed across many heads. Onboarding is slow. Estimation accuracy depends on individual developer experience with the codebase.</p>
+  </div>
+  <div class="compare-box after">
+    <h4>✅ SDD Bottleneck</h4>
+    <p>Spec quality and review capacity. Need better specs and faster reviews to deliver more. Knowledge is captured in specs and CLAUDE.md. Onboarding is faster. Estimation accuracy depends on spec clarity and complexity calibration.</p>
+  </div>
+</div>
+
+<div class="callout">
+  <h4>Don't Create Tasks Under Specs</h4>
+  <p>The most common mistake when transitioning: decomposing specs into tasks the way you would with stories. Agents handle their own task decomposition. If you find yourself writing tasks under specs in ADO, either the spec is too large (split it) or you are micromanaging the agent workflow.</p>
+</div>
+
+<a href="index.html#lifecycle" class="back-link">← Back to Spec Lifecycle overview</a>
+
+<footer>
+  <p>Qcells Software Engineering &nbsp;·&nbsp; AI + Spec-Driven Development Operating Model &nbsp;·&nbsp; v0.1 Draft</p>
+</footer>
+
+</div>
+</body>
+</html>

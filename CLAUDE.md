@@ -16,6 +16,7 @@ sdd-operating-model/
 ├── senior-developer.html   # Senior Developer role detail page
 ├── tpm.html                # TPM role detail page
 ├── dev-manager.html        # Dev Manager role detail page
+├── work-management.html    # Work Management process page (ADO + Scrum mapping)
 ├── README.md               # Project overview
 ├── CONTRIBUTING.md          # Feedback & contribution guide
 ├── CLAUDE.md               # This file — Claude Code project instructions
@@ -35,7 +36,8 @@ sdd-operating-model/
 
 - **`index.html`** — Overview landing page with role summary cards, spec lifecycle, executive reporting, and transformation sections.
 - **`styles.css`** — Shared stylesheet used by all HTML pages. All styling lives here.
-- **`architect.html`, `senior-developer.html`, `tpm.html`, `dev-manager.html`** — Dedicated role detail pages with full responsibilities, artifacts, KPIs, and insights.
+- **`architect.html`, `senior-developer.html`, `tpm.html`, `dev-manager.html`, `product-owner.html`** — Dedicated role detail pages with full responsibilities, artifacts, KPIs, and insights.
+- **`work-management.html`** — Work management page covering Scrum-to-SDD mapping, Azure DevOps board setup, ceremonies, estimation, and spec flow.
 - **`specs/SPEC_TEMPLATE.md`** — The template that architects use to write implementation specs.
 - **`docs/adr/`** — Architecture Decision Records documenting key decisions.
 

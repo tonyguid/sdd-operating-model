@@ -123,6 +123,9 @@ td:first-child { font-weight: 600; width: 50px; text-align: center; }
 .feedback-section p { color: #1E3A5F; font-size: 0.9rem; }
 .feedback-section code { background: #DBEAFE; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; }
 
+/* Wide tables (ceremony/cadence, mapping tables) */
+.wide-table td:first-child { width: auto; text-align: left; }
+
 /* Back link */
 .back-link { display: inline-block; margin-top: 32px; font-size: 0.9rem; font-weight: 600; color: var(--blue); text-decoration: none; }
 .back-link:hover { text-decoration: underline; }
